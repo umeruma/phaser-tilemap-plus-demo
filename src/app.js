@@ -1,6 +1,4 @@
-import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
-import p2 from 'expose-loader?p2!phaser-ce/build/custom/p2.js';
-import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js';
+import Phaser from "phaser"
 
 import BootState from "./states/BootState";
 import MenuState from "./states/MenuState";
@@ -9,9 +7,23 @@ import PlayState from "./states/PlayState";
 const bootState = new BootState();
 const menuState = new MenuState();
 const playState = new PlayState();
-let game = new Phaser.Game(320, 240, Phaser.AUTO, '', bootState);
 
-game.state.add("Boot", bootState);
-game.state.add("Menu", menuState);
-game.state.add("Play", playState);
+const config = {
+  type: Phaser.AUTO,
+  parent: 'root',
+  width: 320 * 2,
+  height: 240 * 2,
+  pixelArt: true,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 600 },
+      // debug: true,
+    }
+  },
+  scene: BootState
+};
+let game = new Phaser.Game(config);
 
+game.scene.add("Menu", menuState);
+game.scene.add("Play", playState);

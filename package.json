@@ -4,9 +4,9 @@
   "description": "Demo game application for phaser-tilemap-plus",
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.14",
     "phaser": "^3.18.1",
-    "phaser3-tilemap-plus": "umeruma/phaser-tilemap-plus",
+    "phaser3-tilemap-plus": "umeruma/phaser-tilemap-plus#update-for-phaser3",
     "poly-decomp": "^0.2.1"
   },
   "devDependencies": {

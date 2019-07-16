@@ -1,48 +1,46 @@
-import PIXI from 'expose-loader?PIXI!phaser-ce/build/custom/pixi.js';
-import p2 from 'expose-loader?p2!phaser-ce/build/custom/p2.js';
-import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split.js';
-//import SAT from "expose-loader?SAT!sat/SAT.js";
-//import "phaser-arcade-slopes";
+import Phaser from 'phaser';
 
-export default class MenuState extends Phaser.State {
-    create() {
-        this.input.keyboard.addKeyCapture([
-            Phaser.Keyboard.SPACEBAR
-        ]);
+export default class MenuState extends Phaser.Scene {
+  create() {
+    this.input.keyboard.addCapture([
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    ]);
 
-        this.stage.backgroundColor = "#00a9f0";
-        
-        const titleText = this.addText("Phaser Tilemap Plus Demo", 16, 20);
-        const subtitleText = this.addText("Press Space to start", 12, 100);
+    this.cameras.main.setBackgroundColor("#00a9f0")
 
-        const subtitleText2 = this.addText("Press Left Mouse button to toggle full screen mode", 12, 110);
-        
-        // fullscreen toggle        
-        this.input.onDown.add(() => toggleFullScreen(this), this);  
-    }
+    const titleText = this.addText("Phaser Tilemap Plus Demo", 16 * 2, 20 * 2);
+    const subtitleText = this.addText("Press Space to start", 12 * 2, 100 * 2);
 
-    update() {
-        if (this.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 50))
-        {
-            this.state.start("Play", true, false, { foo: "bar"});        
-        }
-    }
+    // const subtitleText2 = this.addText("Press Left Mouse button to toggle full screen mode", 12 * 2, 120 * 2);
 
-    addText(text, size, y) {
-        const style = { font: "bold " + size + "px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-        const titleText = this.game.add.text(0, 0, text, style);
-        titleText.setShadow(1, 1, 'rgba(0,0,0,0.5)', 1);
-        titleText.setTextBounds(0, y, 320,  y + size);
-    }
+    // fullscreen toggle
+    // this.input.onDown.add(() => toggleFullScreen(this), this);
+
+    // start game
+    this.input.keyboard.on('keydown-SPACE', this.startGame, this);
+  }
+
+  startGame() {
+    // if (this.input.keyboard.checkDown(Phaser.Input.Keyboard.KeyCodes.SPACE, 50))
+    // {
+      this.scene.start("Play")
+    // }
+  }
+
+  addText(text, size, y) {
+    const style = { font: "bold " + size + "px Arial", fill: "#fff"};
+    const titleText = this.add.text(20, y, text, style);
+    titleText.setShadow(1, 1, 'rgba(0,0,0,0.5)', 1);
+  }
 };
 
 function toggleFullScreen(app) {
-    if (app.scale.isFullScreen)
-    {
-        app.scale.stopFullScreen();
-    }
-    else
-    {
-        app.scale.startFullScreen(false);
-    }
+  // if (app.scale.isFullScreen)
+  // {
+  //     app.scale.stopFullScreen();
+  // }
+  // else
+  // {
+  //     app.scale.startFullScreen(false);
+  // }
 }
